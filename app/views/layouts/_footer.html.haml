@@ -1,0 +1,8 @@
+.navbar-fixed-bottom
+  .navbar-inner
+    .container-fluid
+      .navbar
+        %ul.nav.pull-right
+          %li
+            = link_to root_path do
+              = raw "&copy; We &hearts; Customers. #{Time.current.year}"

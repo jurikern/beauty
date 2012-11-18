@@ -1,0 +1,29 @@
+= simple_form_for(@company, :html => { class: 'form-horizontal', autocomplete: 'off', multipart: true }) do |f|
+  %fieldset
+    %legend
+      %h4= @company.new_record? ? 'New Company' : 'Edit Company'
+
+    - if @company.logo.present?
+      .controls
+        = link_to 'Delete?', '#', id: 'delete_company_logo'
+        = image_tag @company.logo.url, class: 'thumbnail'
+        %br/
+    = f.input :logo  do
+      = f.file_field :logo, style: 'display:none;'
+      %input{ type: 'text', id: 'company_logo_cover',
+        value: @company.logo_cache.present? ? File.basename(@company.logo_cache) : '' }
+      %a{ class: 'btn', id: 'company_logo_cover_btn' } Browse
+      %br/
+      or download from:
+      %br/
+      = f.text_field :remote_logo_url, placeholder: 'http://'
+    = f.input :logo_cache, as: :hidden
+    = f.input :brand, autofocus: true
+    = f.input :address
+    = f.input :email
+    = f.input :phone
+
+    .form-actions
+      = f.submit 'Save', class: 'btn btn-success btn-large'
+      = ' or '
+      %button.btn.btn-large.reset_state_code{ type: 'reset' } Reset

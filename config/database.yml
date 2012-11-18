@@ -1,0 +1,25 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: beauty_development
+  pool: 25
+  host: localhost
+  username: beauty
+  password: beauty696
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: beauty_test
+  pool: 25
+  host: localhost
+  username: beauty
+  password: beauty696
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: beauty_production
+  pool: 5
+  username: beauty
+  password:
