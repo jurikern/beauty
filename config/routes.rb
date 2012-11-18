@@ -8,4 +8,5 @@ Beauty::Application.routes.draw do
   root to: 'main#index'
 
   resources :companies
+  resources :employees
 end

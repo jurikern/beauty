@@ -1,8 +1,9 @@
 = simple_form_for(@company, :html => { class: 'form-horizontal', autocomplete: 'off', multipart: true }) do |f|
   %fieldset
     %legend
+      - unless @company.new_record?
+        = link_to 'Delete', company_path(@company), class: 'btn btn-small btn-danger pull-right', method: :delete, :data => { confirm: 'Are you sure?' }
       %h4= @company.new_record? ? 'New Company' : 'Edit Company'
-
     - if @company.logo.present?
       .controls
         = link_to 'Delete?', '#', id: 'delete_company_logo'

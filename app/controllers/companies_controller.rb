@@ -24,6 +24,7 @@ class CompaniesController < ApplicationController
     @company = Company.find(params[:id])
     if @company.present?
       @owner = @company.employer.user == current_user
+      @employees = @owner ? @company.employees.all : @company.employees.allowed.all
     end
   end
 

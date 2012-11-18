@@ -5,9 +5,9 @@ class User < ActiveRecord::Base
 
   @graph = false
 
-  has_one :profile
-  has_one :employer
-  has_one :employee
+  has_one  :profile
+  has_one  :employer
+  has_many :employees
 
   validates :email,              presence: true, uniqueness: true
   validates :username,           presence: true, uniqueness: true

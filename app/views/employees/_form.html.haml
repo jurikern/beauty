@@ -1,0 +1,11 @@
+= simple_form_for @employee, :html => { class: 'form-horizontal', autocomplete: 'off' } do |f|
+  %fieldset
+    %h4= @employee.new_record? ? 'New Employee' : 'Edit Employee'
+
+    = f.association :company, label_method: :brand, prompt: 'Choose a company'
+    = f.input :role, autofocus: true, placeholder: 'Men\'s grooming, body care ...'
+
+    .form-actions
+      = f.submit 'Save', class: 'btn btn-success btn-large'
+      = ' or '
+      %button.btn.btn-large.reset_state_code{ type: 'reset' } Reset

@@ -13,4 +13,4 @@
               = image_tag company.logo.url, width: '25' if company.logo.present?
             .span10= company.brand.titleize
   %li.divider
-  = link_to 'Register as an employee', '', class: 'btn'
+  = link_to 'Register as an employee', new_employee_path, class: 'btn'

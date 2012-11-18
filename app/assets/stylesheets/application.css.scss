@@ -1,10 +1,10 @@
-@import "bootswatch/cerulean/variables";
+@import "bootswatch/spacelab/variables";
 @import "bootstrap";
 
 body { padding-top: 60px; padding-bottom: 60px; }
 
 @import "bootstrap-responsive";
-@import "bootswatch/cerulean/bootswatch";
+@import "bootswatch/spacelab/bootswatch";
 @import "gmaps4rails";
 @import "main";
 @import "companies";

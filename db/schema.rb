@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121117235539) do
+ActiveRecord::Schema.define(:version => 20121117235559) do
 
   create_table "companies", :force => true do |t|
     t.integer  "employer_id"
@@ -36,8 +36,11 @@ ActiveRecord::Schema.define(:version => 20121117235539) do
 
   create_table "employees", :force => true do |t|
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "company_id"
+    t.string   "role",       :default => "",    :null => false
+    t.boolean  "allowed",    :default => false, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "employers", :force => true do |t|
@@ -74,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20121117235539) do
 
   add_foreign_key "companies", "employers", :name => "companies_employer_id_fk", :dependent => :delete
 
+  add_foreign_key "employees", "companies", :name => "employees_company_id_fk", :dependent => :delete
   add_foreign_key "employees", "users", :name => "employees_user_id_fk", :dependent => :delete
 
   add_foreign_key "employers", "users", :name => "employers_user_id_fk", :dependent => :delete

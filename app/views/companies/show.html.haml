@@ -1,6 +1,5 @@
 - if @owner
   .company-management-top-panel.pull-right
-    = link_to 'Add employees', '', class: 'btn btn-large'
     = link_to 'Edit', edit_company_path(@company), class: 'btn btn-large btn-success'
 .company-content-container
   .row#company-head
@@ -8,7 +7,11 @@
       .row-fluid
         .span1
           = image_tag @company.logo.url, class: 'thumbnail pull-right' if @company.logo.present?
-        .span8= @company.brand.titleize
+        .span8
+          = @company.brand.titleize
+          - if @company.location
+            %br/
+            %span.label.label-success= @company.location
   .row#company-body
     - owner_profile = @company.employer.user.profile
     .row-fluid#owner-info
@@ -44,6 +47,18 @@
     .row#employees-container.well.span11
       %h4 Employees:
       %br/
-- if @owner
-  .company-management-bottom-panel.pull-right
-    = link_to 'Delete', company_path(@company), class: 'btn btn-small btn-danger', method: :delete, :data => { confirm: 'Are you sure?' }
+      - @employees.each do |employee|
+        - profile = employee.user.profile
+        .row-fluid
+          .span1
+            = image_tag profile.logo, class: 'thumbnail' if profile.logo.present?
+          .span6
+            = link_to profile.link, target: '_blank' do
+              %h4= profile.name.titleize
+            - employee.splitted_role.each do |role|
+              %span.label.label-success= role.capitalize
+          .span3
+          - if @owner || employee.user == current_user
+            = link_to 'Edit', edit_employee_path(employee), class: 'btn btn-large'
+            - if @owner and !employee.allowed?
+              = link_to 'Allow', '', class: 'btn btn-large btn-success'
