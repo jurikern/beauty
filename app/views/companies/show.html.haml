@@ -1,0 +1,49 @@
+- if @owner
+  .company-management-top-panel.pull-right
+    = link_to 'Add employees', '', class: 'btn btn-large'
+    = link_to 'Edit', edit_company_path(@company), class: 'btn btn-large btn-success'
+.company-content-container
+  .row#company-head
+    %h2
+      .row-fluid
+        .span1
+          = image_tag @company.logo.url, class: 'thumbnail pull-right' if @company.logo.present?
+        .span8= @company.brand.titleize
+  .row#company-body
+    - owner_profile = @company.employer.user.profile
+    .row-fluid#owner-info
+      .span1
+        = image_tag owner_profile.logo, class: 'thumbnail pull-right', width: '25' if owner_profile.logo.present?
+      .span2= link_to owner_profile.name.titleize, owner_profile.link, target: '_blank'
+      .span9
+        = "Register this company #{time_ago_in_words(@company.created_at)} ago"
+        - unless @company.updated_at == @company.created_at
+          %br/
+          = "Latest updates are made #{time_ago_in_words(@company.updated_at)} ago"
+    .row-fluid#contact-info.well.span11
+      %h4 Contact information:
+      %br/
+      .span3
+        .row-fluid
+          .span4
+            %span.label.label-info Email:
+          .span4= mail_to @company.email.downcase
+        .row-fluid
+          .span4
+            %span.label.label-info Phone:
+          .span4= @company.phone
+        .row-fluid
+          .span4
+            %span.label.label-info Address:
+          .span4
+            = link_to @company.address, "http://www.google.com/maps?q=#{@company.address}", target: '_blank'
+      .span8
+        #company-map
+          = gmaps('markers' => { data: @company.to_gmaps4rails },
+                  'map_options' => { 'auto_zoom' => false, 'zoom' => 15})
+    .row#employees-container.well.span11
+      %h4 Employees:
+      %br/
+- if @owner
+  .company-management-bottom-panel.pull-right
+    = link_to 'Delete', company_path(@company), class: 'btn btn-small btn-danger', method: :delete, :data => { confirm: 'Are you sure?' }

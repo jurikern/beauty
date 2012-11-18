@@ -1,3 +1,14 @@
-// Place all the styles related to the companies controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#owner-info {
+  margin-top: 25px;
+}
+
+#contact-info {
+  margin-top: 50px;
+}
+
+#company-map {
+  .map_container, .gmaps4rails_map {
+    width: 400px;
+    height: 250px;
+  }
+}

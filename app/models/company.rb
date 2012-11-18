@@ -1,5 +1,10 @@
 class Company < ActiveRecord::Base
+  belongs_to :employer
+
   mount_uploader  :logo, LogoUploader
+  extend FriendlyId
+  friendly_id :brand, use: :slugged
+
   attr_accessible :logo, :logo_cache, :remote_logo_url, :brand, :city, :address, :phone, :email
 
   validates :brand,        presence: true, :uniqueness => true

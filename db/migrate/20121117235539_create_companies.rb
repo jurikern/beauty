@@ -1,6 +1,8 @@
 class CreateCompanies < ActiveRecord::Migration
   def change
     create_table :companies do |t|
+      t.integer :employer_id
+      t.string  :slug,    null: false, default: ''
       t.string  :logo,    null: false, default: ''
       t.string  :brand,   null: false, default: ''
       t.string  :country, null: false, default: ''
@@ -16,6 +18,8 @@ class CreateCompanies < ActiveRecord::Migration
       t.timestamps
     end
 
+    add_index :companies, :slug,  unique: true
     add_index :companies, :brand, unique: true
+    add_foreign_key :companies, :employers, dependent: :delete
   end
 end

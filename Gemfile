@@ -42,4 +42,5 @@ gem 'gmaps4rails'
 gem 'valid_email'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'friendly_id'
 

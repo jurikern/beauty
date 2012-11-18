@@ -11,25 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121118012606) do
+ActiveRecord::Schema.define(:version => 20121117235539) do
 
   create_table "companies", :force => true do |t|
-    t.string   "logo",       :default => "",    :null => false
-    t.string   "brand",      :default => "",    :null => false
-    t.string   "country",    :default => "",    :null => false
-    t.string   "state",      :default => "",    :null => false
-    t.string   "city",       :default => "",    :null => false
-    t.string   "address",    :default => "",    :null => false
-    t.string   "phone",      :default => "",    :null => false
-    t.string   "email",      :default => "",    :null => false
-    t.float    "lat",        :default => 0.0,   :null => false
-    t.float    "lng",        :default => 0.0,   :null => false
-    t.boolean  "gmaps",      :default => false, :null => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.integer  "employer_id"
+    t.string   "slug",        :default => "",    :null => false
+    t.string   "logo",        :default => "",    :null => false
+    t.string   "brand",       :default => "",    :null => false
+    t.string   "country",     :default => "",    :null => false
+    t.string   "state",       :default => "",    :null => false
+    t.string   "city",        :default => "",    :null => false
+    t.string   "address",     :default => "",    :null => false
+    t.string   "phone",       :default => "",    :null => false
+    t.string   "email",       :default => "",    :null => false
+    t.float    "lat",         :default => 0.0,   :null => false
+    t.float    "lng",         :default => 0.0,   :null => false
+    t.boolean  "gmaps",       :default => false, :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   add_index "companies", ["brand"], :name => "index_companies_on_brand", :unique => true
+  add_index "companies", ["slug"], :name => "index_companies_on_slug", :unique => true
 
   create_table "employees", :force => true do |t|
     t.integer  "user_id"
@@ -68,6 +71,8 @@ ActiveRecord::Schema.define(:version => 20121118012606) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["provider", "uid"], :name => "index_users_on_provider_and_uid", :unique => true
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
+
+  add_foreign_key "companies", "employers", :name => "companies_employer_id_fk", :dependent => :delete
 
   add_foreign_key "employees", "users", :name => "employees_user_id_fk", :dependent => :delete
 

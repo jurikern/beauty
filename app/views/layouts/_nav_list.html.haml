@@ -2,6 +2,15 @@
   %li.nav-header For Customers:
   %li.nav-header For Employers:
   = link_to 'Register a new company', new_company_path, class: 'btn btn-success'
-
+  - if current_user.present? and (employer = current_user.employer).present?
+    - if employer.companies.present?
+      %li.divider
+    - employer.companies.each do |company|
+      %li
+        = link_to company_path(company) do
+          .row-fluid
+            .span2.thumbnail
+              = image_tag company.logo.url, width: '25' if company.logo.present?
+            .span10= company.brand.titleize
   %li.divider
   = link_to 'Register as an employee', '', class: 'btn'
