@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121117235539) do
+ActiveRecord::Schema.define(:version => 20121118012606) do
 
   create_table "companies", :force => true do |t|
     t.string   "logo",       :default => "",    :null => false
@@ -30,6 +30,18 @@ ActiveRecord::Schema.define(:version => 20121117235539) do
   end
 
   add_index "companies", ["brand"], :name => "index_companies_on_brand", :unique => true
+
+  create_table "employees", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "employers", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "profiles", :force => true do |t|
     t.integer  "user_id"
@@ -56,6 +68,10 @@ ActiveRecord::Schema.define(:version => 20121117235539) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["provider", "uid"], :name => "index_users_on_provider_and_uid", :unique => true
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
+
+  add_foreign_key "employees", "users", :name => "employees_user_id_fk", :dependent => :delete
+
+  add_foreign_key "employers", "users", :name => "employers_user_id_fk", :dependent => :delete
 
   add_foreign_key "profiles", "users", :name => "profiles_user_id_fk", :dependent => :delete
 
