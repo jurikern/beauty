@@ -1,6 +1,9 @@
 = simple_form_for @employee, :html => { class: 'form-horizontal', autocomplete: 'off' } do |f|
   %fieldset
-    %h4= @employee.new_record? ? 'New Employee' : 'Edit Employee'
+    %legend
+      - unless @employee.new_record?
+        = link_to 'Delete', employee_path(@employee), class: 'btn btn-small btn-danger pull-right', method: :delete, :data => { confirm: 'Are you sure?' }
+      %h4= @employee.new_record? ? 'New Employee' : 'Edit Employee'
 
     = f.association :company, label_method: :brand, prompt: 'Choose a company'
     = f.input :role, autofocus: true, placeholder: 'Men\'s grooming, body care ...'

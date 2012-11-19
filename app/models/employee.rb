@@ -8,6 +8,16 @@ class Employee < ActiveRecord::Base
 
   scope :allowed, where(allowed: true)
 
+  def allow!
+    self.allowed = true
+    save!
+  end
+
+  def ban!
+    self.allowed = false
+    save!
+  end
+
   def splitted_role
     return self.role.split(',').map(&:strip) if self.role.present?
     []

@@ -8,5 +8,9 @@ Beauty::Application.routes.draw do
   root to: 'main#index'
 
   resources :companies
+  scope 'employees' do
+    match ':id/allow' => 'employees#allow', as: :allow_employee, via: :put
+    match ':id/ban'   => 'employees#ban',   as: :ban_employee,   via: :delete
+  end
   resources :employees
 end

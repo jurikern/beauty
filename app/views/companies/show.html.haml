@@ -61,4 +61,6 @@
           - if @owner || employee.user == current_user
             = link_to 'Edit', edit_employee_path(employee), class: 'btn btn-large'
             - if @owner and !employee.allowed?
-              = link_to 'Allow', '', class: 'btn btn-large btn-success'
+              = link_to 'Allow', allow_employee_path(employee), class: 'btn btn-large btn-success', method: :put, data: { confirm: 'Are you sure?' }
+            - elsif @owner and employee.allowed?
+              = link_to 'Ban', ban_employee_path(employee), class: 'btn btn-large btn-danger', method: :delete, data: { confirm: 'Are you sure?' }
